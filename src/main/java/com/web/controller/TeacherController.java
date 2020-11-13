@@ -91,6 +91,9 @@ public class TeacherController {
         return "redirect:getIndependentTestList.do";
     }
 
+    public String xinjian(){
+        return null;
+    }
 }
 
 

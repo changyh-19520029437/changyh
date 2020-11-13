@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.TeacherMapper">
+
+    <select id="getIndependentTestList" resultType="TestBean">
+
+        SELECT DISTINCT
+           t.*
+        FROM
+            tb_test t
+            LEFT JOIN tb_test_grade tsg ON t.testid = tsg.testid
+            LEFT JOIN tb_grade g ON g.gid = tsg.gid
+            LEFT JOIN tb_teacher_grade tag ON tag.gid = g.gid
+        WHERE
+            tag.tid = #{tid}
+
+    </select>
+
+    <select id="getGradeListByTid" resultType="GradeBean">
+
+        SELECT
+            g.*
+        FROM
+            tb_grade g
+            LEFT JOIN tb_teacher_grade tag ON g.gid = tag.gid
+        WHERE
+            tag.tid = #{tid}
+
+    </select>
+
+    <select id="getTeacherList" resultType="TeacherBean">
+
+
+
+
+    </select>
+
+</mapper>

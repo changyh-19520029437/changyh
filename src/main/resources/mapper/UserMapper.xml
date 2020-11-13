@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.UserMapper">
+
+    <!-- 将学生信息封装进map集合 -->
+    <resultMap id="stumap" type="StudentBean">
+        <id column="sid" property="sid"/>
+        <result property="sname" column="sname"/>
+        <result column="age" property="age"/>
+        <result column="birthday" property="birthday"/>
+        <result column="address" property="address"/>
+        <association property="gb" javaType="GradeBean">
+            <id column="gid" property="gid"/>
+            <result column="gname" property="gname"/>
+        </association>
+    </resultMap>
+
+    <!-- 查询所有用户 -->
+    <select id="getUserList" resultType="UserBean">
+
+        SELECT
+            *
+            FROM
+              tb_user
+
+    </select>
+
+    <!-- 查询学生信息 -->
+    <select id="getStuAllList" resultMap="stumap">
+
+       SELECT
+            a.*,
+            c.*
+           FROM
+                tb_student a
+                LEFT JOIN tb_student_grade b ON a.sid = b.sid
+                LEFT JOIN tb_grade c ON b.gid = c.gid
+
+    </select>
+
+    <!-- 查询班级信息 -->
+    <select id="getGradeList" resultType="GradeBean">
+
+       SELECT
+            *
+          FROM
+              tb_grade
+
+    </select>
+
+    <!-- 省市县三级联动 -->
+    <select id="getCityListById" resultType="CityBean">
+
+        SELECT
+                *
+            FROM
+                tb_city
+            WHERE
+                pid = #{id}
+
+    </select>
+
+</mapper>

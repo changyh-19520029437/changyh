@@ -1,0 +1,23 @@
+fileupload:function(){
+            var formData = new window.FormData();
+            formData.append('file', document.querySelector('input[type=file]').files[0]);
+            var options = {
+                url: '../test/fileUpload.do',
+                data: formData,
+                method: 'post',
+                headers: {     //headers:   必须书写
+                    'Content-Type': 'multipart/form-data'
+                }
+            };
+            var _this = this;
+            axios(options).then(function (response) {
+                if(response.data.flag){
+                    var number = Number(response.data.msg);
+                    alert(number);
+                     _this.entity.totalscore=number;
+                     alert(_this.entity.totalscore);
+                }else{
+                    alert(response.data.msg);
+                }
+            });
+        }
